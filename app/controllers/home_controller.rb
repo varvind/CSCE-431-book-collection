@@ -7,7 +7,6 @@ class HomeController < ApplicationController
       @books = conn.exec "SELECT * From Books"
     rescue
       flash[:notice] = "Error in retreiving books, please check database connection"
-      redirect_to '/'
     ensure
       conn.close if conn
     end
