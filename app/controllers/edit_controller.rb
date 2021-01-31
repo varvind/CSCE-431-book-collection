@@ -4,10 +4,14 @@ require 'uri'
 class EditController < ApplicationController
   @@book = nil
   def editbook
+    db_name = 'book_collection_development'
+    if Rails.env == 'production'
+        db_name = 'book_collection_production'
+    end
     @title = params[:title]
     @urltitle = URI.encode_www_form_component("#{@title}")
     begin
-      conn = PG::Connection.open(:dbname => 'book_collection_development')
+      conn = PG::Connection.open(:dbname => db_name)
       @book = conn.exec "SELECT * FROM Books WHERE title = '#{@title}';"  
       @@book = @book
     rescue
@@ -19,12 +23,15 @@ class EditController < ApplicationController
   end
 
   def edit
+    db_name = 'book_collection_development'
+    if Rails.env == 'production'
+        db_name = 'book_collection_production'
+    end
     title = params[:newtitle]
     author = params[:author]
     genre = params[:genre]
     price = params[:price]
     pub_date = params[:published_date]
-    conn = PG::Connection.open(:dbname => 'book_collection_development')
 
     # security to ensure user cannot update a table with an empty item
     if title == "" || author == "" || genre == "" || price == nil || pub_date == "" 
@@ -33,7 +40,7 @@ class EditController < ApplicationController
     
 
     begin
-        conn = PG::Connection.open(:dbname => 'book_collection_development')
+        conn = PG::Connection.open(:dbname => db_name)
     rescue
         flash[:notice] = "Error connecting to database"
 

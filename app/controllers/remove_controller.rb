@@ -8,9 +8,12 @@ class RemoveController < ApplicationController
 
   def remove_book
     title = URI.decode_www_form_component(params[:title])
-    
+    db_name = 'book_collection_development'
+    if Rails.env == 'production'
+        db_name = 'book_collection_production'
+    end
     begin
-      conn = PG::Connection.open(:dbname => 'book_collection_development')
+      conn = PG::Connection.open(:dbname => db_name)
       puts "DELETE FROM Books WHERE title = '#{title}';"
       conn.exec ("DELETE FROM Books WHERE title = '#{title}';")
       redirect_to '/'
