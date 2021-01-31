@@ -3,13 +3,14 @@ require 'pg'
 class HomeController < ApplicationController
   def index 
     @books = []
+    puts ENV['DATABASE_URL']
     db_name = 'book_collection_development'
     if Rails.env == 'production'
         db_name = Rails.configuration.database_configuration["production"]["database"]
     end
 
     begin 
-      conn = PG::Connection.open(:dbname => db_name, :user => "arvind2529")
+      conn = PG::Connection.open(:dbname => db_name)
       @books = conn.exec "SELECT * From Books"
     rescue => e
         puts e.message
