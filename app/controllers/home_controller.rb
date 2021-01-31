@@ -2,6 +2,7 @@ require 'pg'
 
 class HomeController < ApplicationController
   def index 
+    @books = []
     begin 
       conn = PG::Connection.open(:dbname => 'book_collection_development')
       @books = conn.exec "SELECT * From Books"
