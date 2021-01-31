@@ -1,0 +1,16 @@
+<br>
+<br>
+<br>
+<a href = "/"><----</a>
+
+<h3><%= @book[0]['title'] %> </h3>
+
+<h5>Author: <%= @book[0]['author'] %> </h5>
+<h5>Genre: <%= @book[0]['genre'] %> </h5>
+<h5>Price(USD): <%= @book[0]['price'] %> </h5>
+<h5>Published Date: <%= @book[0]['published_date'] %> </h5>
+<br>
+
+
+<button onclick = "window.location.href = '/remove/<%=@book[0]['title']%>'" style = "margin-top:1%" >Remove</button>
+<button onclick = "window.location.href = '/edit/<%=@book[0]['title']%>'" style = "margin-top:1%" >Edit</button>
