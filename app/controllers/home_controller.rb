@@ -5,12 +5,13 @@ class HomeController < ApplicationController
     @books = []
     puts ENV['DATABASE_URL']
     db_name = 'book_collection_development'
+    conn = conn = PG::Connection.open(:dbname => db_name)
     if Rails.env == 'production'
-        db_name = Rails.configuration.database_configuration["production"]["database"]
+        conn = PG.connect(ENV['DATABASE_URL'])
     end
 
     begin 
-      conn = PG::Connection.open(:dbname => db_name)
+      
       @books = conn.exec "SELECT * From Books"
     rescue => e
         puts e.message
