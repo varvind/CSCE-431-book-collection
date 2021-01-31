@@ -11,8 +11,9 @@ class HomeController < ApplicationController
     begin 
       conn = PG::Connection.open(:dbname => db_name, :user => "arvind2529")
       @books = conn.exec "SELECT * From Books"
-    rescue
-      flash[:notice] = "Error in retreiving books, please check database connection"
+    rescue => e
+        puts e.message
+        flash[:notice] = "Error in retreiving books, please check database connection"
     ensure
       conn.close if conn
     end
