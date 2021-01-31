@@ -3,13 +3,8 @@ require 'pg'
 class HomeController < ApplicationController
   def index 
     @books = []
-    url = "postgres://arvind2529:arvind00@localhost:5432/book_collection_development"
-    
-    db_name = 'book_collection_development'
-    if Rails.env == 'production'
-        url = ENV['DATABASE_URL']
-        db_name = Rails.configuration.database_configuration["production"]["database"]
-    end
+
+    url = ENV['DATABASE_URL']
 
     uri = URI.parse(url)
 
