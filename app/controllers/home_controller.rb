@@ -7,14 +7,14 @@ class HomeController < ApplicationController
     if Rails.env == 'production'
         db_name = 'book_collection_production'
     end
-    begin 
+    # begin 
       conn = PG::Connection.open(:dbname => db_name)
       @books = conn.exec "SELECT * From Books"
-    rescue
+    # rescue
       flash[:notice] = "Error in retreiving books, please check database connection"
-    ensure
+    # ensure
       conn.close if conn
-    end
+    # end
     
   end
 end
