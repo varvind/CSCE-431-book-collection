@@ -8,20 +8,21 @@ class RemoveController < ApplicationController
 
   def remove_book
     title = URI.decode_www_form_component(params[:title])
-    db_name = 'book_collection_development'
-    if Rails.env == 'production'
-        db_name = 'book_collection_production'
-    end
+
+    url = ENV['DATABASE_URL']
+
+    uri = URI.parse(url)
     begin
-      conn = PG::Connection.open(:dbname => db_name)
-      puts "DELETE FROM Books WHERE title = '#{title}';"
-      conn.exec ("DELETE FROM Books WHERE title = '#{title}';")
-      redirect_to '/'
+        conn = PG.connect(uri.hostname, uri.port, nil, nil, uri.path[1..-1], uri.user, uri.password)
+        puts "DELETE FROM Books WHERE title = '#{title}';"
+        conn.exec ("DELETE FROM Books WHERE title = '#{title}';")
+        flash[:notice] = "Removed book: #{title}"
+        redirect_to '/'
     rescue
-      flash[:notice] = "Error in deleting book, please try again"
-      redirect_to "/remove/#{title}"
+        flash[:notice] = "Error in deleting book, please try again"
+        redirect_to "/remove/#{title}"
     ensure
-      conn.close if conn
+        conn.close if conn
     end
   end
 end

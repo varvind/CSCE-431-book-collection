@@ -1,9 +1,11 @@
 <h1>Book Collection</h1>
 
+<h2> Recent Action: </h2>
 <%  if flash[:notice] %>
-  <h3>Error: Database failed to retrieve books, please try again or reset connection</h3>
+    <h3><%=flash[:notice]%></h3>
+<% else %>
+    <h3>None!</h3>
 <% end %>
-
 <span style="display:inline-block; width: 130px; font-weight:bold; text-decoration:underline">Title</span>
 <span style="display:inline-block; width: 120px; font-weight:bold; text-decoration:underline">Author</span>
 <span style="display:inline-block; width: 100px; font-weight:bold; text-decoration:underline">Genre</span>
@@ -11,14 +13,14 @@
 <span style="display:inline-block; width: 120px; font-weight:bold; text-decoration:underline">Published Date</span>
 <br>
 <% @books.each do |book| %>
-  <span style="display:inline-block; width: 130px;"><%= book['title'] %></span>
-  <span style="display:inline-block; width: 120px;"><%= book['author'] %></span>
-  <span style="display:inline-block; width: 100px;"><%= book['genre'] %></span>
-  <span style="display:inline-block; width: 100px;"><%= book['price'] %></span>
-  <span style="display:inline-block; width: 120px;"><%= book['published_date'] %></span>
-  <a style="display:inline-block; width: 70px;" href = "/remove/<%=book['title']%>">Remove</a>
-  <a style="display:inline-block; width: 40px;" href = "/edit/<%=book['title']%>">Edit</a>
-  <a style="display:inline-block; width: 70px;" href = "/read/<%=book['title']%>">Read</a>
+    <span style="display:inline-block; width: 130px;"><%= book['title'] %></span>
+    <span style="display:inline-block; width: 120px;"><%= book['author'] %></span>
+    <span style="display:inline-block; width: 100px;"><%= book['genre'] %></span>
+    <span style="display:inline-block; width: 100px;"><%= book['price'] %></span>
+    <span style="display:inline-block; width: 120px;"><%= book['published_date'] %></span>
+    <a style="display:inline-block; width: 70px;" href = "/remove/<%=book['title']%>">Remove</a>
+    <a style="display:inline-block; width: 40px;" href = "/edit/<%=book['title']%>">Edit</a>
+    <a style="display:inline-block; width: 70px;" href = "/read/<%=book['title']%>">Read</a>
   <br>
 <% end %>
 <br>

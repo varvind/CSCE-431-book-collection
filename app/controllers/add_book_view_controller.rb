@@ -1,10 +1,19 @@
 require 'pg'
 class AddBookViewController < ApplicationController
-    def add_book 
-    
-    end
     def create
-        conn = PG::Connection.open(:dbname => 'book_collection_development')
+        # fetch db url
+        url = ENV['DATABASE_URL']
+        uri = URI.parse(url)
+
+        begin
+            # connect to db
+            conn = PG.connect(uri.hostname, uri.port, nil, nil, uri.path[1..-1], uri.user, uri.password)
+        rescue
+            flash[:notice] = "Unable to Connect To Database"
+            redirect_to '/addbook'
+        end
+
+        # get form parameters and define variables
         title = params[:title]
         author = params[:author]
         genre = params[:genre]
@@ -12,17 +21,17 @@ class AddBookViewController < ApplicationController
         pub_date = params[:published_date]
 
         begin
-        conn.exec "INSERT INTO Books Values('#{title}', '#{author}', '#{genre}', #{price}, '#{pub_date}');"
-        redirect_to '/'
+            # insert book in db
+            conn.exec "INSERT INTO Books Values('#{title}', '#{author}', '#{genre}', #{price}, '#{pub_date}');"
+            flash[:notice] = "Created Book: #{title}"
+            redirect_to '/'
         rescue
-        flash[:notice] = "Invalid entry"
-        redirect_to '/addbook'
+            # if there is an error in inserting book
+            flash[:notice] = "Error: Invalid Entry (Possile Reasons are duplicate entry or entering a string in the price field :))"
+            redirect_to '/addbook'
         ensure
-        conn.close if conn
+            # close connection
+            conn.close if conn
         end
     end
-    def remove 
-        
-    end
-
 end

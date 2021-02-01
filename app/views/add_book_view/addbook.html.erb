@@ -3,19 +3,19 @@
 <br>
 <a href = "/"> <-- Back To Home </a>
 <%  if flash[:notice] %>
-  <h3>Error: Invalid Entry (Possile Reasons are duplicate entry or entering a string in the price field :))</h3>
+    <h3><%=flash[:notice]%></h3>
 <% end %>
 <%= form_tag('/addbook') do %>
-  <%= text_field_tag(:title, nil, placeholder: 'Title', style: 'margin-bottom:2%; margin-top:2%', required: 'true') %>
-  <br>
-  <%= text_field_tag(:author, nil, placeholder: 'Author' , style: 'margin-bottom:2%', required: 'true') %>
-  <br>
-  <%= text_field_tag(:genre, nil, placeholder: 'Genre', style: 'margin-bottom:2%', required: 'true') %>
-  <br>
-  <%= text_field_tag(:price, nil, placeholder: 'Price', style: 'margin-bottom:2%', required: 'true') %>
-  <br>
-  <%= text_field_tag(:published_date, nil, placeholder: 'Published Date', style: 'margin-bottom:2%', required: 'true') %>
-  <br>
+    <%= text_field_tag(:title, nil, placeholder: 'Title', style: 'margin-bottom:2%; margin-top:2%', required: 'true') %>
+    <br>
+    <%= text_field_tag(:author, nil, placeholder: 'Author' , style: 'margin-bottom:2%', required: 'true') %>
+    <br>
+    <%= text_field_tag(:genre, nil, placeholder: 'Genre', style: 'margin-bottom:2%', required: 'true') %>
+    <br>
+    <%= text_field_tag(:price, nil, placeholder: 'Price', style: 'margin-bottom:2%', required: 'true') %>
+    <br>
+    <%= text_field_tag(:published_date, nil, placeholder: 'Published Date', style: 'margin-bottom:2%', required: 'true') %>
+    <br>
   
-  <%= submit_tag("Add Book") %>
+    <%= submit_tag("Add Book") %>
 <% end %>

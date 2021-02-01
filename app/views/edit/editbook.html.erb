@@ -9,17 +9,17 @@
 <h3> Edit <%= @book[0]['title'] %> </h3>
 
 <%= form_tag("/edit/#{@urltitle}") do %>
-  <%= text_field_tag(:newtitle, @book[0]['title'], placeholder: 'Title', style: 'margin-bottom:2%; margin-top:2%', required: 'true') %>
-  <br>
-  <%= text_field_tag(:author, @book[0]['author'], placeholder: 'Author' , style: 'margin-bottom:2%', required: 'true') %>
-  <br>
-  <%= text_field_tag(:genre, @book[0]['genre'], placeholder: 'Genre', style: 'margin-bottom:2%', required: 'true') %>
-  <br>
-  <%= text_field_tag(:price, @book[0]['price'], placeholder: 'Price', style: 'margin-bottom:2%', required: 'true') %>
-  <br>
-  <%= text_field_tag(:published_date, @book[0]['published_date'], placeholder: 'Published Date', style: 'margin-bottom:2%', required: 'true') %>
-  <br>
-  
-  <%= submit_tag("Edit Book") %>
+    <%= text_field_tag(:newtitle, @book[0]['title'], placeholder: 'Title', style: 'margin-bottom:2%; margin-top:2%', required: 'true') %>
+    <br>
+    <%= text_field_tag(:author, @book[0]['author'], placeholder: 'Author' , style: 'margin-bottom:2%', required: 'true') %>
+    <br>
+    <%= text_field_tag(:genre, @book[0]['genre'], placeholder: 'Genre', style: 'margin-bottom:2%', required: 'true') %>
+    <br>
+    <%= text_field_tag(:price, @book[0]['price'], placeholder: 'Price', style: 'margin-bottom:2%', required: 'true') %>
+    <br>
+    <%= text_field_tag(:published_date, @book[0]['published_date'], placeholder: 'Published Date', style: 'margin-bottom:2%', required: 'true') %>
+    <br>
+    
+    <%= submit_tag("Edit Book") %>
 <% end %>
 <button onclick = "window.location.href = '/'" style = "margin-top:1%" >Cancel</button>
