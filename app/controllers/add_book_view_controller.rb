@@ -12,10 +12,10 @@ class AddBookViewController < ApplicationController
             Book.create(:title => title, :author => author, :genre => genre, :price => price, :published_date => pub_date)
             flash[:notice] = "Created Book: #{title}"
             redirect_to '/'
-        # rescue
-        #     # if there is an error in inserting book
-        #     flash[:notice] = "Error: Invalid Entry (Possile Reasons are duplicate entry or entering a string in the price field :))"
-        #     redirect_to '/addbook'
+        rescue
+            # if there is an error in inserting book
+            flash[:notice] = "Error: Invalid Entry (Possile Reasons are duplicate entry or entering a string in the price field :))"
+            redirect_to '/addbook'
         end
     end
 end
